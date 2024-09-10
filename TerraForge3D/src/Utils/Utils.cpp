@@ -360,13 +360,13 @@ bool PowerOfTwoDropDown(const char* label, int32_t* value, int start, int end)
 	if (!value) return false;
 	static char buffer[32];
 	int tmp = (int)(log((double)*value) / log(2.0));
-	sprintf(buffer, "%d", (int)pow(2, tmp));
+	snprintf(buffer, 32, "%d", (int)pow(2, tmp));
 	if (ImGui::BeginCombo(label, buffer))
 	{
 		for (int i = start; i <= end; i++)
 		{
 			bool is_selected = (tmp == i);
-			sprintf(buffer, "%d", (int)pow(2, i));
+			snprintf(buffer, 32, "%d", (int)pow(2, i));
 			if (ImGui::Selectable(buffer, is_selected)) tmp = i;
 			if (is_selected) ImGui::SetItemDefaultFocus();
 		}
@@ -734,7 +734,7 @@ bool ShowSeedSettings(const std::string& label, int* seed, std::vector<int>& his
 		ImGui::PushID(label.c_str());
 		for (auto i : historyStack)
 		{
-			sprintf(s_Buffer, "%d", i);
+			snprintf(s_Buffer, 256, "%d", i);
 			if (ImGui::Selectable(s_Buffer, *seed == i))
 			{
 				*seed = i;
