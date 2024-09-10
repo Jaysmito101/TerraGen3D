@@ -43,6 +43,9 @@
 #include <windows.h>
 #include <Commdlg.h>
 #endif
+#ifdef __APPLE__
+#include <libproc.h>
+#endif // DEBUG
 
 
 static std::string getExecutablePath()
@@ -50,6 +53,8 @@ static std::string getExecutablePath()
 	char rawPathName[MAX_PATH];
 #ifdef TERR3D_WIN32
 	GetModuleFileNameA(NULL, rawPathName, MAX_PATH);
+#elif defined(__APPLE__)
+    proc_pidpath(getpid(), rawPathName, MAX_PATH);
 #else
 	readlink("/proc/self/exe", rawPathName, PATH_MAX);
 #endif
