@@ -39,7 +39,7 @@ BiomeManager::BiomeManager(ApplicationState* appState)
 	bool success = false;
 	m_Data = std::make_shared<GeneratorData>();
 	static int s_BiomeID = 1;
-	sprintf(m_BiomeName, "Biome %d", s_BiomeID++);
+	snprintf(m_BiomeName, 64, "Biome %d", s_BiomeID++);
 	LoadUpResources();
 	// m_SelectedBaseShapeGeneratorMode = BiomeBaseShapeGeneratorMode_GlobalElevation;
 	for (auto i = 0; i < static_cast<int32_t>(m_BaseShapeGenerators.size()); i++)
